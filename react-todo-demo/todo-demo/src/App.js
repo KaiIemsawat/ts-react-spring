@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import TodoRowItem from "./components/TodoRowItem";
 import TodoTable from "./components/TodoTable";
+import AddTodoForm from "./components/AddTodoForm";
 
 function App() {
     const [todos, setTodos] = useState([
@@ -14,12 +15,12 @@ function App() {
         },
     ]);
 
-    const addTodo = () => {
+    const addTodo = (description, assigned) => {
         if (todos.length > 0) {
             const newTodo = {
                 rowNumber: todos.length + 1,
-                rowDescription: "New todo",
-                rowAssigned: "User Three",
+                rowDescription: description,
+                rowAssigned: assigned,
             };
 
             setTodos((todos) => [...todos, newTodo]);
@@ -32,9 +33,7 @@ function App() {
                 <div className="card-header">Your Todo's</div>
                 <div className="card-body">
                     <TodoTable todos={todos} />
-                    <button className="btn btn-primary" onClick={addTodo}>
-                        Add new todo
-                    </button>
+                    <AddTodoForm addTodo={addTodo} />
                 </div>
             </div>
         </div>
