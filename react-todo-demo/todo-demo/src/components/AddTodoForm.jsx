@@ -43,7 +43,7 @@ const AddTodoForm = (props) => {
                     className="btn btn-primary"
                     onClick={submitTodo}
                 >
-                    Add New Todo
+                    Submit New Todo
                 </button>
             </form>
         </div>
