@@ -1,10 +1,10 @@
+import React from "react";
 import { useState } from "react";
 import "./App.css";
 import TodoTable from "./components/TodoTable";
 import AddTodoForm from "./components/AddTodoForm";
-import React from "react";
 
-function App() {
+const App = () => {
     const [showForm, setShowForm] = useState(false);
     const [todos, setTodos] = useState([
         { rowNumber: 1, rowDescription: "Feed Dogs", rowAssigned: "User One" },
@@ -57,6 +57,6 @@ function App() {
             </div>
         </div>
     );
-}
+};
 
 export default App;
