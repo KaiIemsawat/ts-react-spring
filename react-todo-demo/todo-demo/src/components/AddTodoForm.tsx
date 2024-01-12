@@ -1,6 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-const AddTodoForm = (props) => {
+const AddTodoForm = (props: { addTodo: Function }) => {
     const [description, setDescription] = useState("");
     const [assigned, setAssigned] = useState("");
 
@@ -32,8 +32,6 @@ const AddTodoForm = (props) => {
                         required
                         name=""
                         id=""
-                        cols="30"
-                        rows="10"
                         onChange={(e) => setDescription(e.target.value)}
                         value={description}
                     ></textarea>
