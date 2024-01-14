@@ -57,7 +57,8 @@ const SearchBookPage = () => {
             setIsLoading(false);
             setHttpError(error.message);
         });
-    }, []);
+        window.scrollTo(0, 0);
+    }, [currentPage]);
 
     if (isLoading) {
         return <SpinerLoading />;
@@ -143,9 +144,12 @@ const SearchBookPage = () => {
                         </div>
                     </div>
                     <div className="mt-3">
-                        <h5>Number of results: (22)</h5>
+                        <h5>Number of results: ({totalAmountOfBooks})</h5>
                     </div>
-                    <p>1 to 5 of 22 items:</p>
+                    <p>
+                        {indexOfFirstBook + 1} to {lastItem} of{" "}
+                        {totalAmountOfBooks} items:
+                    </p>
                     {books.map((book) => (
                         <SearchBook book={book} key={book.id} />
                     ))}
