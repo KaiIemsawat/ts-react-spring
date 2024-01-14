@@ -9,5 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface BookRepo extends JpaRepository<Book, Long> {
 
 //    Will create '"search": {"href": "http://localhost:8080/api/books/search"}' in JSON
+//    With    "http://localhost:8080/api/books/search/findByTitleContaining{?title,page,size,sort}"
     Page<Book> findByTitleContaining(@RequestParam("title") String title, Pageable pageable);
+
+//    With     "http://localhost:8080/api/books/search/findByCategory{?category,page,size,sort}"
+    Page<Book> findByCategory(@RequestParam("category") String category, Pageable pageable);
 }
