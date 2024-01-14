@@ -15,6 +15,7 @@ const SearchBookPage = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [search, setSearch] = useState("");
     const [searchUrl, setSearchUrl] = useState("");
+    const [categorySelection, setCategorySelection] = useState("book category");
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -24,8 +25,13 @@ const SearchBookPage = () => {
 
             if (searchUrl === "") {
                 url = `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`;
+            } else {
+                let searchWithPage = searchUrl.replace(
+                    "<pageNumber>",
+                    `${currentPage - 1}`
+                );
+                url = baseUrl + searchWithPage;
             }
-            url = baseUrl + searchUrl;
 
             const response = await fetch(url);
 
@@ -78,12 +84,32 @@ const SearchBookPage = () => {
     }
 
     const searchHandleChange = () => {
+        setCurrentPage(1);
         if (search === "") {
             setSearchUrl("");
         } else {
             setSearchUrl(
-                `/search/findByTitleContaining?title=${search}&page=0&size=${booksPerPage}`
+                `/search/findByTitleContaining?title=${search}&page=<pageNumber>&size=${booksPerPage}`
             );
+        }
+        setCategorySelection("Book category");
+    };
+
+    const categoryField = (value: string) => {
+        setCurrentPage(1);
+        if (
+            value.toLocaleLowerCase() == "fe" ||
+            value.toLocaleLowerCase() === "be" ||
+            value.toLocaleLowerCase() === "data" ||
+            value.toLocaleLowerCase() === "devops"
+        ) {
+            setCategorySelection(value);
+            setSearchUrl(
+                `/search/findByCategory?category=${value}&page=<pageNumber>&size=${booksPerPage}`
+            );
+        } else {
+            setCategorySelection("All");
+            setSearchUrl(`?page=<pageNumber>&size=${booksPerPage}`);
         }
     };
 
@@ -129,33 +155,33 @@ const SearchBookPage = () => {
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
                                 >
-                                    Category
+                                    {categorySelection}
                                 </button>
                                 <ul
                                     className="dropdown-menu"
                                     aria-labelledby="dropdownMenuButton1"
                                 >
-                                    <li>
+                                    <li onClick={() => categoryField("All")}>
                                         <a href="#" className="dropdown-item">
                                             All
                                         </a>
                                     </li>
-                                    <li>
+                                    <li onClick={() => categoryField("FE")}>
                                         <a href="#" className="dropdown-item">
                                             Front End
                                         </a>
                                     </li>
-                                    <li>
+                                    <li onClick={() => categoryField("BE")}>
                                         <a href="#" className="dropdown-item">
                                             Back End
                                         </a>
                                     </li>
-                                    <li>
+                                    <li onClick={() => categoryField("Data")}>
                                         <a href="#" className="dropdown-item">
                                             Data
                                         </a>
                                     </li>
-                                    <li>
+                                    <li onClick={() => categoryField("DevOps")}>
                                         <a href="#" className="dropdown-item">
                                             DevOps
                                         </a>
