@@ -1,3 +1,4 @@
+import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
 import HomePage from "./layouts/Homepage/HomePage";
 import Footer from "./layouts/NavbarAndFooter/Footer";
@@ -8,8 +9,17 @@ function App() {
     return (
         <div>
             <Navbar />
-            {/* <HomePage /> */}
-            <SearchBookPage />
+            <Switch>
+                <Route path="/" exact>
+                    <Redirect to="/home" />
+                </Route>
+                <Route path="/home">
+                    <HomePage />
+                </Route>
+                <Route path="/search">
+                    <SearchBookPage />
+                </Route>
+            </Switch>
             <Footer />
         </div>
     );
