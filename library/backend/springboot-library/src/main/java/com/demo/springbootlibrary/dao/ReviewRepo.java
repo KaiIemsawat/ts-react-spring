@@ -9,4 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public interface ReviewRepo extends JpaRepository<Review,Long> {
     Page<Review> findByBookId(@RequestParam("book_id") Long bookId, Pageable pageable);
+//    Will create -> "href": "http://localhost:8080/api/reviews/search"
+//    with -> "href": "http://localhost:8080/api/reviews/search/findByBookId{?bookId,page,size,sort}",
 }
