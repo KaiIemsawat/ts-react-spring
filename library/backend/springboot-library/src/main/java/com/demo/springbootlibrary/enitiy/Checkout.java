@@ -19,7 +19,6 @@ public class Checkout {
         this.bookId = bookId;
     }
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
