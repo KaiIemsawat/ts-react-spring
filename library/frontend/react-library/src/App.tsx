@@ -1,12 +1,27 @@
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import "./App.css";
+import { oktaConfig } from "./lib/oktaConfig";
+import { OktaAuth, toRelativeUrl } from "@okta/okta-auth-js";
+
 import HomePage from "./layouts/Homepage/HomePage";
 import Footer from "./layouts/NavbarAndFooter/Footer";
 import Navbar from "./layouts/NavbarAndFooter/Navbar";
 import SearchBookPage from "./layouts/searchBookPage/SearchBookPage";
 import BookCheckoutPage from "./layouts/BookCheckoutPage/BookCheckoutPage";
 
+const oktaAuth = new OktaAuth(oktaConfig);
+
 function App() {
+    const history = useHistory();
+    const restoreOriginalUrl = async (_oktaAuth: any, originalUri: any) => {
+        history.replace(
+            toRelativeUrl(originalUri || "/", window.location.origin)
+        );
+    };
+
+    const customAuthHandler = () => {
+        history.push("/login");
+    };
     return (
         <div className="d-flex flex-column min-vh-100">
             <Navbar />
