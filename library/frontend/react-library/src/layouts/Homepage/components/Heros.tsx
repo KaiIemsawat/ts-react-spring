@@ -1,4 +1,8 @@
+import { Link } from "react-router-dom";
+import { useOktaAuth } from "@okta/okta-react";
+
 const Heros = () => {
+    const { authState } = useOktaAuth();
     return (
         <div>
             <div className="d-none d-lg-block">
@@ -15,12 +19,22 @@ const Heros = () => {
                                 skill or grow within one, we will be able to
                                 provide the top one for you!!
                             </p>
-                            <a
-                                href="#"
-                                className="btn main-color btn-lg text-white"
-                            >
-                                Sign Up
-                            </a>
+                            {authState?.isAuthenticated ? (
+                                <Link
+                                    className="btn btn-lg main-color text-white"
+                                    to="search"
+                                    type="button"
+                                >
+                                    Explore top books
+                                </Link>
+                            ) : (
+                                <Link
+                                    to="/login"
+                                    className="btn main-color btn-lg text-white"
+                                >
+                                    Sign Up
+                                </Link>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -57,12 +71,22 @@ const Heros = () => {
                                 skill or grow within one, we will be able to
                                 provide the top one for you!!
                             </p>
-                            <a
-                                href="#"
-                                className="btn main-color btn-lg text-white"
-                            >
-                                Sign Up
-                            </a>
+                            {authState?.isAuthenticated ? (
+                                <Link
+                                    className="btn btn-lg text-white main-color"
+                                    to="search"
+                                    type="button"
+                                >
+                                    Explore top books
+                                </Link>
+                            ) : (
+                                <Link
+                                    to="/login"
+                                    className="btn main-color btn-lg text-white"
+                                >
+                                    Sign Up
+                                </Link>
+                            )}
                         </div>
                     </div>
                     <div className="mt-2">
